@@ -1,0 +1,11 @@
+{
+  "name": "whatsapp-broadcast-panel",
+  "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.9"
+  }
+}
