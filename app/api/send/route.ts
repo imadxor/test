@@ -66,7 +66,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-webhook-secret': webhookSecret,
+        Authorization: webhookSecret,
       },
       body: JSON.stringify({
         account,

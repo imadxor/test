@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0b0d;
-  --surface: #121418;
-  --surface-2: #1a1d22;
-  --border: #2a2e35;
-  --text: #e6e8eb;
-  --text-muted: #8b909a;
-  --text-faint: #565a63;
-  --accent: #f59e0b;
-  --accent-hover: #d68606;
-  --danger: #ef5350;
-  --success: #4ade80;
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f0f1f3;
+  --border: #dcdfe4;
+  --text: #16181d;
+  --text-muted: #5b616e;
+  --text-faint: #93989f;
+  --accent: #d68606;
+  --accent-hover: #b56f04;
+  --danger: #d32f2f;
+  --success: #16a34a;
 
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 @theme inline {
@@ -29,6 +30,7 @@
   --color-danger: var(--danger);
   --color-success: var(--success);
   --font-mono: var(--font-mono);
+  --font-sans: var(--font-sans);
 }
 
 * {
@@ -38,6 +40,91 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 13px;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+/* Client card: rotated, dotted-border "polaroid" style */
+.client-card {
+  --deg: 0.8deg;
+  --lift: 0px;
+  --avg: var(--card-color, var(--accent));
+  --shadow-color: color-mix(in oklch, var(--avg) 55%, black 25%);
+  --shadow-distance: 4px;
+
+  border: 4px solid var(--avg);
+  border-radius: 0.85rem;
+  background-color: var(--avg);
+  background-image: radial-gradient(color-mix(in oklch, var(--avg) 65%, white 12%) 1px, transparent 0px);
+  background-repeat: repeat;
+  background-size: 7px 7px;
+  background-position: center;
+  box-shadow:
+    1px 1px var(--bg),
+    var(--shadow-distance) var(--shadow-distance) var(--shadow-color);
+  transform: rotate(var(--deg)) translateY(var(--lift));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.client-card:hover,
+.client-card:focus-visible {
+  --deg: 0deg;
+  --lift: -6px;
+  --shadow-distance: 7px;
+}
+
+.client-card:nth-child(2n) {
+  --deg: -0.9deg;
+}
+
+.client-card:nth-child(3n) {
+  --deg: 0.6deg;
+}
+
+.client-card:nth-child(4n + 2) {
+  --deg: -0.7deg;
+}
+
+.client-card__face {
+  aspect-ratio: 4 / 3;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in oklch, var(--avg) 80%, white 8%);
+}
+
+.client-card__caption {
+  margin: 0.65rem 0.15rem 0.05rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 1px color-mix(in oklch, var(--avg) 40%, black 40%);
 }
