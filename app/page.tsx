@@ -1,5 +1,11 @@
+import fs from "node:fs";
+import path from "node:path";
 import Link from "next/link";
 import { ACCOUNTS } from "@/lib/accounts";
+
+function logoExists(logoPath: string): boolean {
+  return fs.existsSync(path.join(process.cwd(), "public", logoPath));
+}
 
 export default function Home() {
   return (
@@ -18,7 +24,7 @@ export default function Home() {
             <Link
               key={account.id}
               href={`/${account.id}`}
-              className="client-card group animate-fade-in-up block p-3"
+              className="client-card animate-fade-in-up block"
               style={
                 {
                   "--card-color": account.cardColor,
@@ -27,11 +33,20 @@ export default function Home() {
               }
             >
               <div className="client-card__face">
-                <span className="text-4xl font-bold text-white/95 drop-shadow-sm">
-                  {account.label.charAt(0).toUpperCase()}
-                </span>
+                {logoExists(account.logo) ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- decorative logo, arbitrary aspect ratio, no need for next/image here
+                  <img
+                    src={account.logo}
+                    alt={account.label}
+                    className="h-full w-full object-contain p-4"
+                  />
+                ) : (
+                  <span className="text-4xl font-bold text-white/95 drop-shadow-sm">
+                    {account.label.charAt(0).toUpperCase()}
+                  </span>
+                )}
               </div>
-              <p className="client-card__caption truncate text-center text-sm">{account.label}</p>
+              <p className="client-card__caption truncate">{account.label}</p>
             </Link>
           ))}
         </div>
