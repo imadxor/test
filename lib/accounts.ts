@@ -7,6 +7,14 @@ export const ACCOUNTS = [
     cardColor: '#b1783f',
     logo: '/logos/bagzland.png',
   },
+  {
+    id: 'sap',
+    label: 'SAP',
+    phoneNumberId: 'TODO',
+    wabaId: 'TODO',
+    cardColor: '#4a6fa5',
+    logo: '/logos/bagzland.png',
+  },
 ] as const;
 
 export type Account = (typeof ACCOUNTS)[number];
